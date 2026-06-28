@@ -36,6 +36,23 @@ module.exports = async (req, res) => {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
   if (req.method === "OPTIONS") return res.status(200).end();
+
+  // --- TEMP debug helper: open this endpoint in your browser (GET) to see which models your key supports ---
+  if (req.method === "GET") {
+    const key = process.env.GEMINI_API_KEY;
+    if (!key) return res.status(500).json({ error: "missing GEMINI_API_KEY" });
+    try {
+      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${key}`);
+      const d = await r.json();
+      const availableModels = (d.models || [])
+        .filter((m) => (m.supportedGenerationMethods || []).includes("generateContent"))
+        .map((m) => m.name);
+      return res.status(200).json({ availableModels, error: d.error || null });
+    } catch (e) {
+      return res.status(200).json({ error: String(e) });
+    }
+  }
+
   if (req.method !== "POST") return res.status(405).json({ reply: "Use POST." });
 
   try {
