@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Skyline Realty — Find Your Next Home</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#1a2233;background:#fff;line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 22px}
+  header{display:flex;align-items:center;justify-content:space-between;height:72px;border-bottom:1px solid #eef1f5}
+  .logo{font-weight:800;font-size:22px;color:#1f6feb}
+  nav a{margin-left:24px;color:#56627a;text-decoration:none;font-size:15px}
+  .hero{padding:80px 0 60px;text-align:center;background:linear-gradient(180deg,#f6f8fb,#fff)}
+  .hero h1{font-size:clamp(34px,6vw,58px);font-weight:800;letter-spacing:-1px;max-width:760px;margin:0 auto}
+  .hero p{color:#56627a;font-size:19px;margin:20px auto 30px;max-width:560px}
+  .hero .btn{display:inline-block;background:#1f6feb;color:#fff;padding:15px 32px;border-radius:999px;text-decoration:none;font-weight:600}
+  section{padding:60px 0}
+  h2{font-size:30px;font-weight:800;margin-bottom:8px}
+  .sub{color:#56627a;margin-bottom:34px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .card{border:1px solid #eef1f5;border-radius:16px;overflow:hidden;box-shadow:0 8px 24px rgba(20,30,50,.04)}
+  .card .img{height:190px;background-size:cover;background-position:center}
+  .card .b{padding:18px}
+  .card .price{color:#1f6feb;font-weight:800;font-size:20px}
+  .card h3{font-size:17px;margin:4px 0 6px}
+  .card .meta{color:#8a97a8;font-size:14px}
+  .banner{background:#0f1b33;color:#fff;border-radius:20px;padding:48px;text-align:center;margin:20px 0}
+  .banner h2{font-size:28px}.banner p{opacity:.8;margin:12px 0 0}
+  footer{border-top:1px solid #eef1f5;padding:30px 0;color:#8a97a8;font-size:14px;text-align:center}
+  @media(max-width:800px){.grid{grid-template-columns:1fr}nav{display:none}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">Skyline Realty</div>
+      <nav><a href="#">Buy</a><a href="#">Sell</a><a href="#">Rent</a><a href="#">Contact</a></nav>
+    </header>
+  </div>
+
+  <div class="hero">
+    <div class="wrap">
+      <h1>Find a home you'll love.</h1>
+      <p>Skyline Realty helps you buy, sell, and rent across the city — with expert agents by your side.</p>
+      <a href="#" class="btn">Browse listings</a>
+    </div>
+  </div>
+
+  <section class="wrap">
+    <h2>Featured listings</h2>
+    <div class="sub">A few of our latest homes on the market.</div>
+    <div class="grid">
+      <div class="card">
+        <div class="img" style="background-image:url('https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=600&q=80')"></div>
+        <div class="b"><div class="price">$385,000</div><h3>Modern Family Home</h3><div class="meta">3 bed · 2 bath · 1,850 sqft</div></div>
+      </div>
+      <div class="card">
+        <div class="img" style="background-image:url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80')"></div>
+        <div class="b"><div class="price">$520,000</div><h3>Suburban Villa</h3><div class="meta">4 bed · 3 bath · 2,400 sqft</div></div>
+      </div>
+      <div class="card">
+        <div class="img" style="background-image:url('https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=600&q=80')"></div>
+        <div class="b"><div class="price">$1,950/mo</div><h3>Downtown Apartment</h3><div class="meta">2 bed · 1 bath · 950 sqft</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="banner">
+      <h2>Questions? Ask our assistant 👉</h2>
+      <p>Tap the chat bubble in the corner — it answers instantly, 24/7.</p>
+    </div>
+  </section>
+
+  <footer><div class="wrap">© 2026 Skyline Realty · Demo site</div></footer>
+
+  <!-- ===== THE AI ASSISTANT (this one line is what a client pastes) ===== -->
+  <script src="widget.js" data-api="/api/chat" data-name="Skyline Realty" data-accent="#1f6feb"></script>
+</body>
+</html>
