@@ -37,22 +37,6 @@ module.exports = async (req, res) => {
 
   if (req.method === "OPTIONS") return res.status(200).end();
 
-  // --- TEMP debug helper: open this endpoint in your browser (GET) to see which models your key supports ---
-  if (req.method === "GET") {
-    const key = process.env.GEMINI_API_KEY;
-    if (!key) return res.status(500).json({ error: "missing GEMINI_API_KEY" });
-    try {
-      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${key}`);
-      const d = await r.json();
-      const availableModels = (d.models || [])
-        .filter((m) => (m.supportedGenerationMethods || []).includes("generateContent"))
-        .map((m) => m.name);
-      return res.status(200).json({ availableModels, error: d.error || null });
-    } catch (e) {
-      return res.status(200).json({ error: String(e) });
-    }
-  }
-
   if (req.method !== "POST") return res.status(405).json({ reply: "Use POST." });
 
   try {
@@ -73,23 +57,33 @@ module.exports = async (req, res) => {
     while (contents.length && contents[0].role === "model") contents.shift();
 
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${key}`;
-    const resp = await fetch(apiUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: SYSTEM }] },
-        contents,
-        generationConfig: { temperature: 0.6, maxOutputTokens: 400 },
-      }),
+    const payload = {
+      systemInstruction: { parts: [{ text: SYSTEM }] },
+      contents,
+      generationConfig: { temperature: 0.6, maxOutputTokens: 400 },
+    };
+    const ask = async () => {
+      const resp = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await resp.json();
+      return data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+    };
+
+    let reply = await ask();
+    if (!reply) {
+      // one silent retry — smooths over temporary "high demand" spikes
+      await new Promise((r) => setTimeout(r, 1200));
+      reply = await ask();
+    }
+
+    return res.status(200).json({
+      reply:
+        reply ||
+        "I'm getting a lot of questions right now — please try again in a moment, or leave your name & number and an agent will get back to you!",
     });
-
-    const data = await resp.json();
-    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (reply) return res.status(200).json({ reply });
-
-    // If we reach here, the AI call failed — surface the real reason so we can fix it fast
-    const debug = data?.error?.message || data?.promptFeedback?.blockReason || "no_candidate";
-    return res.status(200).json({ reply: "⚠️ (debug) " + debug });
   } catch (err) {
     return res.status(200).json({ reply: "Something went wrong on my end. Please try again in a moment." });
   }
