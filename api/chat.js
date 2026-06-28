@@ -5,7 +5,7 @@
 //  TO CUSTOMISE PER CLIENT: edit the BUSINESS block below.
 // ============================================================
 
-const MODEL = "gemini-1.5-flash"; // free-tier friendly. alternatives: "gemini-2.0-flash-lite", "gemini-1.5-flash-8b"
+const MODEL = "gemini-2.5-flash-lite"; // free-tier friendly. fallbacks: "gemini-2.0-flash-lite", "gemini-flash-lite-latest"
 
 // ---- THE BUSINESS PROFILE (this is the bot's "knowledge") ----
 const BUSINESS = `
