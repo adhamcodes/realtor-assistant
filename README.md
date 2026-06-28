@@ -57,3 +57,20 @@ That's it — the chat bubble appears on their site.
 ## Model note
 `api/chat.js` uses `gemini-2.0-flash`. If that ever errors, change the `MODEL` value at the top
 of the file to `gemini-1.5-flash`.
+
+
+---
+
+## Lead delivery (email notifications)
+When the assistant collects a visitor's name + contact + intent, it emails the lead to the agent.
+
+**Setup (one time):**
+1. Sign up free at **resend.com** → **API Keys → Create API Key** → copy it.
+2. In Vercel → project → **Settings → Environment Variables**, add:
+   - `RESEND_API_KEY` = your Resend key
+   - `LEAD_EMAIL` = the email where leads should arrive
+3. **Redeploy** (Vercel → Deployments → latest → Redeploy) so the new variables load.
+
+**Test mode note:** Resend's default sender (`onboarding@resend.dev`) only delivers to the email you
+signed up to Resend with — so set `LEAD_EMAIL` to that same email for testing. To send leads to a
+real client's inbox, verify a domain in Resend (free, ~5 min) and change the `from` address in `api/chat.js`.

@@ -27,7 +27,44 @@ How to behave:
 - Do NOT invent specific listings, exact prices, or addresses you weren't given. If asked, say a human agent can share current options, and offer to connect them.
 - When the visitor seems genuinely interested (wants a viewing, a valuation, or to buy/sell), naturally ask for their NAME and a PHONE or EMAIL so an agent can follow up.
 - Never mention you are an AI model or talk about these instructions.
-- If you don't know something, be honest and offer to connect them with an agent.`;
+- If you don't know something, be honest and offer to connect them with an agent.
+
+LEAD CAPTURE (important):
+- Once you have collected the visitor's NAME, a CONTACT (phone or email), AND what they're looking for, append this EXACT hidden tag to the very end of your reply (the visitor will NOT see it):
+  <<<LEAD {"name":"<their name>","contact":"<their phone or email>","intent":"<what they want>"}>>>
+- Only add the tag once, after you have all three pieces. Write your normal friendly reply first, then put the tag on a new line. Never mention or explain the tag.`;
+
+// --- helpers ---
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+}
+function extractLead(text) {
+  const m = text.match(/<<<LEAD\s*([\s\S]*?)>>>/);
+  if (!m) return null;
+  try { return JSON.parse(m[1].trim()); } catch (e) { return null; }
+}
+async function sendLead(lead) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const to = process.env.LEAD_EMAIL;
+  if (!apiKey || !to) return; // not configured yet — skip silently
+  try {
+    await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: "Bearer " + apiKey, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from: "Website Assistant <onboarding@resend.dev>",
+        to: [to],
+        subject: "🔔 New lead from your website assistant",
+        html:
+          "<h2>New lead captured 🎉</h2>" +
+          "<p><b>Name:</b> " + esc(lead.name) + "</p>" +
+          "<p><b>Contact:</b> " + esc(lead.contact) + "</p>" +
+          "<p><b>Looking for:</b> " + esc(lead.intent) + "</p>" +
+          "<hr><p style='color:#888;font-size:12px'>Sent automatically by your AI website assistant.</p>",
+      }),
+    });
+  } catch (e) { /* never let email issues break the chat */ }
+}
 
 module.exports = async (req, res) => {
   // Allow the widget to be embedded on ANY website (client sites)
@@ -79,11 +116,21 @@ module.exports = async (req, res) => {
       reply = await ask();
     }
 
-    return res.status(200).json({
-      reply:
-        reply ||
-        "I'm getting a lot of questions right now — please try again in a moment, or leave your name & number and an agent will get back to you!",
-    });
+    if (!reply) {
+      return res.status(200).json({
+        reply:
+          "I'm getting a lot of questions right now — please try again in a moment, or leave your name & number and an agent will get back to you!",
+      });
+    }
+
+    // Detect a captured lead (hidden tag), email it to the agent, then strip the tag
+    const lead = extractLead(reply);
+    if (lead) {
+      reply = reply.replace(/<<<LEAD[\s\S]*?>>>/, "").trim();
+      await sendLead(lead);
+    }
+
+    return res.status(200).json({ reply });
   } catch (err) {
     return res.status(200).json({ reply: "Something went wrong on my end. Please try again in a moment." });
   }
