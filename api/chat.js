@@ -52,6 +52,8 @@ module.exports = async (req, res) => {
       role: m.role === "assistant" ? "model" : "user",
       parts: [{ text: String(m.content || "") }],
     }));
+    // Gemini requires the conversation to START with a user turn — drop any leading bot turns
+    while (contents.length && contents[0].role === "model") contents.shift();
 
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${key}`;
     const resp = await fetch(apiUrl, {
@@ -65,11 +67,12 @@ module.exports = async (req, res) => {
     });
 
     const data = await resp.json();
-    const reply =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "Sorry, I didn't catch that — could you rephrase?";
+    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (reply) return res.status(200).json({ reply });
 
-    return res.status(200).json({ reply });
+    // If we reach here, the AI call failed — surface the real reason so we can fix it fast
+    const debug = data?.error?.message || data?.promptFeedback?.blockReason || "no_candidate";
+    return res.status(200).json({ reply: "⚠️ (debug) " + debug });
   } catch (err) {
     return res.status(200).json({ reply: "Something went wrong on my end. Please try again in a moment." });
   }
