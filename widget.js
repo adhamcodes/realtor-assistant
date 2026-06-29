@@ -62,6 +62,7 @@
   var body = win.querySelector("#ra-body");
   var input = win.querySelector("#ra-input");
   var messages = [];
+  var leadCaptured = false;
 
   function add(role, text) {
     var d = document.createElement("div");
@@ -102,10 +103,11 @@
       var r = await fetch(API, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: messages }),
+        body: JSON.stringify({ messages: messages, leadCaptured: leadCaptured }),
       });
       var data = await r.json();
       typing.remove();
+      if (data.leadCaptured) leadCaptured = true;
       var reply = data.reply || "Sorry, please try again.";
       messages.push({ role: "assistant", content: reply });
       add("assistant", reply);
