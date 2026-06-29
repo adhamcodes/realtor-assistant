@@ -3,132 +3,197 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AI Assistant for Real Estate — Never Miss a Lead</title>
-<meta name="description" content="An AI assistant for your real estate website that answers buyers 24/7 and captures every lead straight to your inbox." />
+<title>AI Assistant for Real Estate — Never Miss Another Lead</title>
+<meta name="description" content="A done-for-you AI assistant for your real estate website. Answers buyers 24/7, captures every lead to your inbox. Free setup, risk-free trial." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+  :root{--ink:#0b1220;--navy:#0d1730;--blue:#2f6bff;--blue2:#5b8cff;--soft:#f4f7fc;--muted:#5a6party;--line:#e7ecf5;--gold:#f5b301}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#1a2233;line-height:1.65;background:#fff}
-  .wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+  body{font-family:'Plus Jakarta Sans',sans-serif;color:#0b1220;line-height:1.65;background:#fff;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 22px}
   a{color:inherit}
-  header{display:flex;align-items:center;justify-content:space-between;height:70px;border-bottom:1px solid #eef1f5}
-  .logo{font-weight:800;font-size:20px;color:#1f6feb}
-  .btn{display:inline-block;background:#1f6feb;color:#fff;padding:14px 28px;border-radius:999px;text-decoration:none;font-weight:700;transition:.2s}
-  .btn:hover{background:#1857c4}
-  .btn.big{font-size:17px;padding:16px 34px}
-  /* hero */
-  .hero{text-align:center;padding:74px 0 56px;background:linear-gradient(180deg,#f5f8ff,#fff)}
-  .tag{display:inline-block;background:#e7f0ff;color:#1f6feb;font-weight:700;font-size:13px;padding:7px 16px;border-radius:999px;margin-bottom:22px}
-  .hero h1{font-size:clamp(32px,5.5vw,52px);font-weight:800;letter-spacing:-1px;max-width:760px;margin:0 auto;line-height:1.1}
-  .hero p{color:#56627a;font-size:19px;margin:22px auto 30px;max-width:580px}
-  .hero .tryhint{margin-top:18px;color:#8a97a8;font-size:14px}
-  /* sections */
-  section{padding:60px 0}
-  h2{font-size:clamp(26px,4vw,38px);font-weight:800;text-align:center;letter-spacing:-.5px}
-  .lead{color:#56627a;text-align:center;max-width:600px;margin:14px auto 0;font-size:17px}
-  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
-  .card{border:1px solid #eef1f5;border-radius:16px;padding:30px;text-align:center;box-shadow:0 8px 24px rgba(20,30,50,.04)}
-  .card .ic{font-size:34px;margin-bottom:14px}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:#2f6bff;color:#fff;padding:15px 30px;border-radius:12px;text-decoration:none;font-weight:700;transition:.2s;box-shadow:0 10px 26px rgba(47,107,255,.32)}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(47,107,255,.42)}
+  .btn.big{font-size:17px;padding:17px 36px}
+  .btn.gold{background:#f5b301;color:#1a1300;box-shadow:0 10px 26px rgba(245,179,1,.32)}
+
+  /* NAV */
+  header{position:absolute;top:0;left:0;right:0;z-index:5}
+  nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .logo{font-weight:800;font-size:19px;color:#fff;display:flex;align-items:center;gap:9px}
+  .logo .d{width:10px;height:10px;border-radius:50%;background:#34d399;box-shadow:0 0 12px #34d399}
+  nav a.port{color:#cdd8f0;text-decoration:none;font-size:14px;font-weight:600}
+
+  /* HERO */
+  .hero{background:radial-gradient(900px 500px at 70% -10%,#1c2f5e,#0b1220);color:#fff;padding:130px 0 90px;position:relative;overflow:hidden}
+  .hero:after{content:'';position:absolute;width:500px;height:500px;background:#2f6bff;filter:blur(150px);opacity:.25;top:-120px;right:-80px}
+  .hero .inner{position:relative;z-index:2;max-width:720px}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#cdd8f0;font-weight:600;font-size:13px;padding:8px 16px;border-radius:999px;margin-bottom:24px}
+  .hero h1{font-size:clamp(34px,6vw,58px);font-weight:800;letter-spacing:-1.5px;line-height:1.05}
+  .hero h1 span{color:#5b8cff}
+  .hero p{color:#b8c4e0;font-size:20px;margin:24px 0 32px;max-width:560px}
+  .hero .row{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .hero .trcustomly{margin-top:22px;color:#8fa0c6;font-size:14px}
+  .guarantee-bar{background:#34d399;color:#04230f;font-weight:700;text-align:center;padding:13px;font-size:15px}
+
+  section{padding:72px 0}
+  h2{font-size:clamp(26px,4vw,40px);font-weight:800;letter-spacing:-.6px;text-align:center}
+  .lead{color:#5a6b8c;text-align:center;max-width:620px;margin:14px auto 0;font-size:18px}
+
+  .prob{background:#0b1220;color:#fff;border-radius:22px;padding:52px;text-align:center;margin-top:8px}
+  .prob h2{color:#fff}.prob p{color:#aab6d2;max-width:640px;margin:16px auto 0;font-size:18px}
+  .prob .big-num{font-size:54px;font-weight:800;color:#5b8cff;margin-top:10px}
+
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:46px}
+  .card{border:1px solid #e7ecf5;border-radius:18px;padding:32px;box-shadow:0 10px 30px rgba(13,23,48,.05)}
+  .card .ic{font-size:32px;margin-bottom:14px}
   .card h3{font-size:19px;margin-bottom:8px}
-  .card p{color:#56627a;font-size:15px}
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
-  .step .n{width:46px;height:46px;border-radius:50%;background:#1f6feb;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:18px}
-  .step{text-align:center}.step h3{font-size:18px;margin-bottom:6px}.step p{color:#56627a;font-size:15px}
-  /* problem */
-  .prob{background:#0f1b33;color:#fff;border-radius:22px;padding:50px;text-align:center;margin:10px 0}
-  .prob h2{color:#fff}.prob p{color:#c3ccdb;max-width:620px;margin:16px auto 0;font-size:17px}
-  /* pricing */
-  .price-box{max-width:480px;margin:44px auto 0;border:2px solid #1f6feb;border-radius:20px;padding:40px;text-align:center}
-  .price-box .amt{font-size:46px;font-weight:800;color:#1f6feb}
-  .price-box .amt small{font-size:17px;color:#56627a;font-weight:600}
+  .card p{color:#5a6b8c;font-size:15px}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:46px}
+  .step{text-align:center}
+  .step .n{width:48px;height:48px;border-radius:14px;background:#2f6bff;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:18px}
+  .step h3{font-size:18px;margin-bottom:6px}.step p{color:#5a6b8c;font-size:15px}
+
+  /* WHY ME / TRUST */
+  .why{background:#f4f7fc;border-radius:22px;padding:48px;display:grid;grid-template-columns:1fr 1.4fr;gap:40px;align-items:center}
+  .why .face{width:120px;height:120px;border-radius:20px;background:linear-gradient(135deg,#2f6bff,#0b1220);display:flex;align-items:center;justify-content:center;color:#fff;font-size:54px;font-weight:800}
+  .why h3{font-size:24px;margin-bottom:6px}
+  .why .role{color:#2f6bff;font-weight:700;font-size:14px;margin-bottom:14px}
+  .why p{color:#46556f;font-size:16px;margin-bottom:10px}
+  .why a.port{color:#2f6bff;font-weight:700;text-decoration:none}
+
+  /* PRICING */
+  .price-box{max-width:520px;margin:46px auto 0;border:2px solid #2f6bff;border-radius:22px;padding:44px;text-align:center;position:relative;box-shadow:0 20px 50px rgba(47,107,255,.12)}
+  .price-box .badge{position:absolute;top:-15px;left:50%;transform:translateX(-50%);background:#f5b301;color:#1a1300;font-weight:800;font-size:13px;padding:7px 18px;border-radius:999px;white-space:nowrap}
+  .price-box .free{font-size:40px;font-weight:800;color:#0b1220}
+  .price-box .free span{color:#2f6bff}
+  .price-box .then{color:#5a6b8c;margin-top:6px;font-size:16px}
   .price-box ul{list-style:none;margin:24px 0;text-align:left;display:inline-block}
-  .price-box li{padding:7px 0;color:#1a2233}.price-box li:before{content:'✓ ';color:#1f6feb;font-weight:800}
-  .launch{background:#e7f0ff;color:#1f6feb;font-weight:700;font-size:14px;padding:8px 16px;border-radius:999px;display:inline-block;margin-bottom:18px}
-  /* final cta */
-  .final{text-align:center;padding:70px 0}
-  .final h2{margin-bottom:10px}
-  .final p{color:#56627a;margin-bottom:30px;font-size:18px}
+  .price-box li{padding:8px 0;color:#0b1220;font-size:15.5px}.price-box li:before{content:'✓';color:#2f6bff;font-weight:800;margin-right:10px}
+
+  /* FAQ */
+  .faq{max-width:760px;margin:40px auto 0}
+  details{border:1px solid #e7ecf5;border-radius:14px;padding:18px 22px;margin-bottom:12px;cursor:pointer}
+  summary{font-weight:700;list-style:none;display:flex;justify-content:space-between}
+  summary::-webkit-details-marker{display:none}
+  summary:after{content:'+';color:#2f6bff;font-size:20px}
+  details[open] summary:after{content:'–'}
+  details p{color:#5a6b8c;margin-top:12px}
+
+  .final{text-align:center;padding:80px 0}
+  .final h2{margin-bottom:12px}.final p{color:#5a6b8c;margin-bottom:30px;font-size:18px}
   .contacts{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-  .contacts a{border:1.5px solid #dde3ec;padding:14px 26px;border-radius:999px;text-decoration:none;font-weight:700;color:#1a2233}
-  .contacts a.wa{background:#25D366;color:#fff;border-color:#25D366}
-  footer{border-top:1px solid #eef1f5;padding:30px 0;text-align:center;color:#8a97a8;font-size:14px}
-  @media(max-width:780px){.cards,.steps{grid-template-columns:1fr}.prob{padding:34px}}
+  .contacts a{padding:15px 28px;border-radius:12px;text-decoration:none;font-weight:700}
+  .contacts .wa{background:#25D366;color:#fff}
+  .contacts .em{background:#0b1220;color:#fff}
+  .contacts .fv{background:#fff;color:#0b1220;border:1.5px solid #e7ecf5}
+  footer{border-top:1px solid #e7ecf5;padding:30px 0;text-align:center;color:#8a97b5;font-size:14px}
+  @media(max-width:780px){.cards,.steps{grid-template-columns:1fr}.why{grid-template-columns:1fr;text-align:center;padding:32px}.why .face{margin:0 auto}.prob{padding:34px}}
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="logo">Adham · AI for Realtors</div>
-      <a href="#contact" class="btn">Get it on my site</a>
-    </header>
-  </div>
+  <header><div class="wrap"><nav>
+    <div class="logo"><span class="d"></span>Adham · AI for Realtors</div>
+    <a class="port" href="https://portfolio-adham-mu.vercel.app" target="_blank">View my work ↗</a>
+  </nav></div></header>
 
   <div class="hero">
-    <div class="wrap">
-      <span class="tag">For Real Estate Agents</span>
-      <h1>Turn your website visitors into leads — automatically.</h1>
-      <p>I add a friendly AI assistant to your website that answers buyers' questions 24/7 and captures their name + number — sent straight to your inbox.</p>
-      <a href="#contact" class="btn big">Get this on my website →</a>
-      <div class="tryhint">👉 Try it yourself — tap the chat bubble in the bottom-right corner.</div>
-    </div>
+    <div class="wrap"><div class="inner">
+      <span class="pill">🏡 Built for real estate agents</span>
+      <h1>Never miss another lead from your website — <span>even at 2am.</span></h1>
+      <p>I add a smart AI assistant to your site that answers buyers instantly, 24/7, and sends every interested visitor's name &amp; number straight to your inbox.</p>
+      <div class="row">
+        <a href="#pricing" class="btn big">Get started — free setup</a>
+      </div>
+      <div class="trcustomly">👉 Don't take my word for it — <b style="color:#fff">try the assistant yourself</b> (tap the chat bubble, bottom-right).</div>
+    </div></div>
   </div>
+  <div class="guarantee-bar">✅ Free setup · ✅ 7-day free trial · ✅ Cancel anytime — zero risk to you</div>
 
   <section class="wrap">
     <div class="prob">
-      <h2>Most website visitors leave without ever contacting you.</h2>
-      <p>They have a question at 9pm, nobody's there to answer, and they move on to the next agent. Every one of those is a lost commission.</p>
+      <h2>Most of your website visitors leave — and never come back.</h2>
+      <div class="big-num">~70%</div>
+      <p>They have a question after hours, no one replies, so they message the next agent instead. Every missed visitor is a missed commission.</p>
     </div>
   </section>
 
   <section class="wrap">
-    <h2>Your AI assistant fixes that.</h2>
-    <p class="lead">It works while you sleep, so you never miss another enquiry.</p>
+    <h2>Your AI assistant catches them all.</h2>
+    <p class="lead">It works around the clock so a real person doesn't have to.</p>
     <div class="cards">
-      <div class="card"><div class="ic">💬</div><h3>Answers instantly, 24/7</h3><p>Buyers get their questions answered any time — even at midnight or while you're showing a home.</p></div>
-      <div class="card"><div class="ic">🔔</div><h3>Captures every lead</h3><p>When someone's interested, it grabs their name + contact and emails it to you right away.</p></div>
-      <div class="card"><div class="ic">⚡</div><h3>Set up in days</h3><p>No work on your end. I build it, match it to your brand, and add it to your site for you.</p></div>
+      <div class="card"><div class="ic">💬</div><h3>Answers in seconds, 24/7</h3><p>Buyers get instant replies at any hour — while you sleep, drive, or show homes.</p></div>
+      <div class="card"><div class="ic">🔔</div><h3>Emails you every lead</h3><p>The moment someone's interested, you get their name + contact in your inbox.</p></div>
+      <div class="card"><div class="ic">🎯</div><h3>Zero work for you</h3><p>I build it, brand it, and install it. You just start receiving leads.</p></div>
     </div>
   </section>
 
   <section class="wrap">
     <h2>How it works</h2>
     <div class="steps">
-      <div class="step"><div class="n">1</div><h3>You send me your info</h3><p>Your agency name, areas, and the questions buyers usually ask.</p></div>
-      <div class="step"><div class="n">2</div><h3>I build & install it</h3><p>I set up your assistant and add it to your website — usually in 2–3 days.</p></div>
-      <div class="step"><div class="n">3</div><h3>Leads roll in</h3><p>Your assistant chats with visitors and emails you every new lead.</p></div>
+      <div class="step"><div class="n">1</div><h3>Tell me about you</h3><p>Your agency name, areas, and common buyer questions — a 10-minute chat.</p></div>
+      <div class="step"><div class="n">2</div><h3>I build & install it free</h3><p>Your assistant is live on your site in 2–3 days. No cost to start.</p></div>
+      <div class="step"><div class="n">3</div><h3>You get leads</h3><p>Try it free for a week. Love it? Keep it for $29/mo. Don't? I remove it, no charge.</p></div>
     </div>
   </section>
 
   <section class="wrap">
-    <h2>Simple pricing</h2>
+    <div class="why">
+      <div class="face">A</div>
+      <div>
+        <h3>Hi, I'm Adham 👋</h3>
+        <div class="role">Front-end developer &amp; builder</div>
+        <p>I build modern websites and AI tools. I'm taking on a few real estate clients to grow my portfolio — which is exactly why I'm making this <b>risk-free for you</b>: I only want you to pay if it actually helps.</p>
+        <p>Want proof I'm legit? <a class="port" href="https://portfolio-adham-mu.vercel.app" target="_blank">See my work here ↗</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="pricing">
+    <h2>Simple, risk-free pricing</h2>
+    <p class="lead">I'm only taking my first 5 clients at this offer.</p>
     <div class="price-box">
-      <span class="launch">🚀 Launch offer — limited spots</span>
-      <div class="amt">$149 <small>one-time setup</small></div>
+      <span class="badge">🚀 FIRST 5 CLIENTS ONLY</span>
+      <div class="free"><span>$0</span> to start</div>
+      <div class="then">Free setup + 7-day free trial · then just <b>$29/month</b> · cancel anytime</div>
       <ul>
-        <li>Custom AI assistant for your site</li>
+        <li>Custom AI assistant built for your agency</li>
         <li>Answers buyers 24/7</li>
-        <li>Lead alerts to your inbox</li>
-        <li>Matched to your brand</li>
-        <li>Then just $29/month for hosting & updates</li>
+        <li>Lead alerts straight to your inbox</li>
+        <li>Installed on your site for you</li>
+        <li>No setup fee, no contract, no risk</li>
       </ul>
-      <a href="#contact" class="btn big">Claim a spot</a>
+      <a href="#contact" class="btn gold big">Claim your free setup</a>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>Common questions</h2>
+    <div class="faq">
+      <details open><summary>Is there really no risk?</summary><p>Correct. I set it up for free and you try it for 7 days. If it doesn't bring you leads or you don't love it, I take it down and you pay nothing. You only pay the $29/month if you choose to keep it.</p></details>
+      <details><summary>Do I need to be techy?</summary><p>Not at all. You send me a few details, I do everything else and install it on your site for you.</p></details>
+      <details><summary>Will it sound robotic to my clients?</summary><p>No — try it yourself with the chat bubble. It's friendly and natural, and it's trained on your business.</p></details>
+      <details><summary>What if I don't have a website?</summary><p>No problem — message me and I can set you up with a simple one too.</p></details>
     </div>
   </section>
 
   <section class="final" id="contact">
     <div class="wrap">
-      <h2>Want this on your website?</h2>
-      <p>Message me and I'll get your assistant live this week.</p>
+      <h2>Ready to catch more leads?</h2>
+      <p>Message me and I'll have your assistant live this week — free to start.</p>
       <div class="contacts">
         <a class="wa" href="https://wa.me/8801811643000">💬 WhatsApp me</a>
-        <a href="mailto:adhammahmood83@gmail.com">✉ Email me</a>
-        <a href="https://www.fiverr.com/s/2K3qBNr">🟢 Hire on Fiverr</a>
+        <a class="em" href="mailto:adhammahmood83@gmail.com">✉ Email me</a>
+        <a class="fv" href="https://www.fiverr.com/s/2K3qBNr">🟢 Hire on Fiverr</a>
       </div>
     </div>
   </section>
 
-  <footer><div class="wrap">© 2026 Adham · AI Assistants for Real Estate</div></footer>
+  <footer><div class="wrap">© 2026 Adham · AI Assistants for Real Estate · <a href="https://portfolio-adham-mu.vercel.app" target="_blank" style="color:#2f6bff;text-decoration:none">Portfolio</a></div></footer>
 
-  <!-- the live demo robot, so agents can try it right here -->
-  <script src="widget.js" data-api="/api/chat" data-name="Demo" data-accent="#1f6feb"></script>
+  <script src="widget.js" data-api="/api/chat" data-name="Demo" data-accent="#2f6bff"></script>
 </body>
 </html>
